@@ -1,8 +1,2 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![HueEase - Banner](https://github.com/Adryanssyah/HueEase/assets/90913264/26bc8c8e-2434-4206-8e54-e44ad8a4fadb)
+Explore and create gradients with various color combinations for your Tailwind CSS and CSS code.
