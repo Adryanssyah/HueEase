@@ -1,8 +1,9 @@
 // import data from '../../data/gradients';
-import Card from '../../components/fragments/Card';
+
 import GradientLists from '../fragments/GradientLists/GradientLists';
 import TabsButton from '../elements/TabsButton';
 import { useEffect, useState } from 'react';
+import Card from '../fragments/Card';
 const GradientsLayout = () => {
      const [type, setType] = useState('linear');
 

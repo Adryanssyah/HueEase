@@ -52,6 +52,14 @@ const HeaderLayout = () => {
           };
      }, []);
 
+     useEffect(() => {
+          if (mobileMenuOpen && isMobile) {
+               document.body.style.overflow = 'hidden';
+          } else {
+               document.body.style.overflow = 'auto';
+          }
+     }, [isMobile, mobileMenuOpen]);
+
      return (
           <>
                <HeaderNavigation>

@@ -7,7 +7,7 @@ const FooterLayout = () => {
                          Adryan
                     </a>{' '}
                     @2023. See the source code on{' '}
-                    <a href="#" className="underline">
+                    <a href="https://github.com/Adryanssyah/HueEase" target="_blank" className="underline">
                          Github
                     </a>
                     .{' '}
