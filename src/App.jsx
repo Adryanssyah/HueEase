@@ -19,7 +19,12 @@ function App() {
                                    <p className="text-gray-500 dark:text-gray-400 px-4 md:px-0">Explore and create gradients with various color combinations for your Tailwind CSS and CSS code.</p>
 
                                    <div className="flex gap-4">
-                                        <ButtonIcon title="Explore"></ButtonIcon>
+                                        <ButtonIcon
+                                             title="Explore"
+                                             onClick={() => {
+                                                  document.getElementById('gradients').scrollIntoView();
+                                             }}
+                                        ></ButtonIcon>
                                         <ButtonIcon title="Generate" color="bg-none border border-gray-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-darks">
                                              <ArrowLongRightIcon className="w-5 h-5 inline-block " />
                                         </ButtonIcon>
