@@ -1,5 +1,5 @@
 const MobileMenuList = ({ children }) => {
-     return <div className="fixed top-[68.8px] left-0 w-full min-h-screen bg-white/80 dark:bg-black/80 backdrop-blur-xl flex flex-col items-center gap-2 px-4 py-5">{children}</div>;
+     return <div className="fixed top-[68.8px] left-0 w-full min-h-screen bg-white/80 dark:bg-black/80 backdrop-blur-xl flex flex-col items-center gap-2 px-4 py-5 z-50">{children}</div>;
 };
 
 const List = ({ link, title, active }) => {

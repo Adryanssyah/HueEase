@@ -1,11 +1,14 @@
 // import data from '../../data/gradients';
-
 import GradientLists from '../fragments/GradientLists/GradientLists';
 import TabsButton from '../elements/TabsButton';
 import { useEffect, useState } from 'react';
 import Card from '../fragments/Card';
+import CardGradientDirectionProvider from '../../context/CardGradientContext';
+import { primaryDirections, radialDirections, conicDirections } from '../../data/directions';
 const GradientsLayout = () => {
      const [type, setType] = useState('linear');
+
+     const types = ['linear', 'radial', 'conic'];
 
      const gradients = [
           {
@@ -16,6 +19,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-orange-400 to-rose-400',
                     css: 'background-image: linear-gradient(to right, #ff8c00, #ff007f);',
                },
+               color: 'from-orange-400 to-rose-400',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 2,
@@ -25,6 +30,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-br from-gray-900 to-gray-600',
                     css: 'background-image: linear-gradient(to bottom right, #222, #666);',
                },
+               color: 'bg-gradient-to-br from-gray-900 to-gray-600',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 3,
@@ -34,6 +41,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-br from-emerald-300 to-blue-300',
                     css: 'background-image: linear-gradient(to bottom right, #38a169, #4299e1);',
                },
+               color: 'bg-gradient-to-br from-emerald-300 to-blue-300',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 4,
@@ -43,6 +52,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-purple-800 via-violet-900 to-purple-800',
                     css: 'background-image: linear-gradient(to right, #4c1d95, #7f1ce3, #4c1d95);',
                },
+               color: 'from-purple-800 via-violet-900 to-purple-800',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 5,
@@ -52,6 +63,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-rose-300 to-rose-500',
                     css: 'background-image: linear-gradient(to right, #f66, #f06);',
                },
+               color: 'from-rose-300 to-rose-500',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 6,
@@ -61,6 +74,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-emerald-500 to-lime-600',
                     css: 'background-image: linear-gradient(to right, #48bb78, #a2c779);',
                },
+               color: 'from-emerald-500 to-lime-600',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 7,
@@ -70,6 +85,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-slate-500 to-yellow-100',
                     css: 'background-image: linear-gradient(to right, #4b5563, #f6e05e);',
                },
+               color: 'from-slate-500 to-yellow-100',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 8,
@@ -79,6 +96,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-b from-orange-500 to-yellow-300',
                     css: 'background-image: linear-gradient(to bottom, #ed8936, #f6e05e);',
                },
+               color: 'bg-gradient-to-b from-orange-500 to-yellow-300',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 9,
@@ -88,6 +107,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-teal-200 to-lime-200',
                     css: 'background-image: linear-gradient(to right, #319795, #a2c779);',
                },
+               color: 'from-teal-200 to-lime-200',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 10,
@@ -97,6 +118,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-rose-100 to-teal-100',
                     css: 'background-image: linear-gradient(to right, #fdaeab, #a4ebf3);',
                },
+               color: 'from-rose-100 to-teal-100',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 11,
@@ -106,6 +129,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-red-500 to-red-800',
                     css: 'background-image: linear-gradient(to right, #f56565, #742a2a);',
                },
+               color: 'from-red-500 to-red-800',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 12,
@@ -115,6 +140,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-emerald-500 to-lime-600',
                     css: 'background-image: linear-gradient(to right, #48bb78, #a2c779);',
                },
+               color: 'from-emerald-500 to-lime-600',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 13,
@@ -124,6 +151,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-rose-500 via-red-400 to-red-500',
                     css: 'background-image: linear-gradient(to right, #ef4444, #f56565, #ef4444);',
                },
+               color: 'from-rose-500 via-red-400 to-red-500',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 14,
@@ -133,6 +162,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-violet-300 to-violet-400',
                     css: 'background-image: linear-gradient(to right, #9333ea, #d53f8c);',
                },
+               color: 'from-violet-300 to-violet-400',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 15,
@@ -142,6 +173,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-fuchsia-500 via-red-600 to-orange-400',
                     css: 'background-image: linear-gradient(to right, #d53f8c, #fuchsia, #ff8c00);',
                },
+               color: 'from-fuchsia-500 via-red-600 to-orange-400',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 16,
@@ -151,6 +184,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-gradient-to-r from-blue-400 to-emerald-400',
                     css: 'background-image: linear-gradient(to right, #4299e1, #48bb78);',
                },
+               color: 'from-blue-400 to-emerald-400',
+               direction: 'bg-gradient-to-r',
           },
           {
                id: 17,
@@ -160,6 +195,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900 to-indigo-500',
                     css: 'background-image: radial-gradient(ellipse at center, var(--tw-gradient-stops));',
                },
+               color: 'from-purple-900 to-indigo-500',
+               direction: 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))]',
           },
           {
                id: 18,
@@ -169,6 +206,8 @@ const GradientsLayout = () => {
                     tailwind: 'bg-[conic-gradient(at_left,_var(--tw-gradient-stops))] from-yellow-200 via-red-500 to-fuchsia-500',
                     css: 'background-image: conic-gradient(at left, var(--tw-gradient-stops));',
                },
+               color: 'from-yellow-200 via-red-500 to-fuchsia-500',
+               direction: 'bg-[conic-gradient(at_left,_var(--tw-gradient-stops))]',
           },
      ];
 
@@ -189,21 +228,27 @@ const GradientsLayout = () => {
      return (
           <GradientLists>
                <GradientLists.Tabs>
-                    <TabsButton active={type === 'linear'} onClick={() => setType('linear')}>
-                         Linear
-                    </TabsButton>
-                    <TabsButton active={type === 'radial'} onClick={() => setType('radial')}>
-                         Radial
-                    </TabsButton>
-                    <TabsButton active={type === 'conic'} onClick={() => setType('conic')}>
-                         Conic
-                    </TabsButton>
+                    {types.map((item) => (
+                         <TabsButton key={item} active={type === item} onClick={() => setType(item)}>
+                              {item}
+                         </TabsButton>
+                    ))}
                </GradientLists.Tabs>
                <GradientLists.CardList>
                     {gradients
                          .filter((item) => item.type === type)
                          .map((item) => (
-                              <Card key={item.id} gradientData={item} savedGradients={savedGradients} addCollection={addCollection} removeCollection={removeCollection} />
+                              <Card key={item.id}>
+                                   <CardGradientDirectionProvider>
+                                        <Card.Gradient color={item.color} direction={item.direction}></Card.Gradient>
+                                        <Card.FooterContainer>
+                                             <Card.Direction direction={item.direction} dataDirections={item.type === 'conic' ? conicDirections : type === 'radial' ? radialDirections : primaryDirections} />
+                                             <Card.ButtonsContainer>
+                                                  <Card.Buttons savedGradients={savedGradients} id={item.id} addCollection={addCollection} removeCollection={removeCollection} />
+                                             </Card.ButtonsContainer>
+                                        </Card.FooterContainer>
+                                   </CardGradientDirectionProvider>
+                              </Card>
                          ))}
                </GradientLists.CardList>
           </GradientLists>
