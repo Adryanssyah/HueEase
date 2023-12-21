@@ -1,9 +1,5 @@
 const GradientLists = ({ children }) => {
-     return (
-          <section id="gradients" className="mt-20">
-               {children}
-          </section>
-     );
+     return <section id="gradients">{children}</section>;
 };
 
 const Tabs = ({ children }) => {

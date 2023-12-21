@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Select } from '@radix-ui/themes';
 
 import { CardGradientDirection } from '../../../context/CardGradientContext';
+import { Alert } from '../../../context/AlertContext';
 
 const Card = ({ children }) => {
      return <article className="flex flex-col items-start justify-start gap-3.5">{children}</article>;
@@ -49,7 +50,7 @@ const Direction = ({ direction, dataDirections }) => {
      );
 };
 
-const Buttons = ({ savedGradients, id, addCollection, removeCollection }) => {
+const Buttons = ({ savedGradients, id, addCollection, removeCollection, children }) => {
      const [popup, setPopup] = useState(false);
      const popupRef = useRef();
      const buttonRef = useRef();
@@ -81,30 +82,7 @@ const Buttons = ({ savedGradients, id, addCollection, removeCollection }) => {
                               key={popup}
                               className={`w-full absolute -top-52 left-0 flex items-center justify-center`}
                          >
-                              <div className="flex flex-col gap-4 w-11/12 p-5 rounded-xl bg-white/90 dark:bg-darks/90  backdrop-blur">
-                                   <div className="w-full">
-                                        <h3 className="text-sm font-medium mb-1">Tailwind</h3>
-                                        <div className="flex gap-2">
-                                             <code className="px-3 py-1.5 text-xs rounded-lg border border-gray-300 dark:border-gray-700 overflow-hidden whitespace-nowrap truncate">
-                                                  bg-gradient-to-r from-green-300 via-blue-500 to-purple-600
-                                             </code>
-                                             <CardButton label={'Copy Tailwind'}>
-                                                  <ClipboardIcon className={`w-3 h-3`}></ClipboardIcon>
-                                             </CardButton>
-                                        </div>
-                                   </div>
-                                   <div className="w-full">
-                                        <h3 className="text-sm font-medium mb-1">CSS</h3>
-                                        <div className="flex gap-2">
-                                             <code className="px-3 py-1.5 text-xs rounded-lg border border-gray-300 dark:border-gray-700 overflow-hidden whitespace-nowrap truncate">
-                                                  linear-gradient(to right, rgb(134, 239, 172), rgb(59, 130, 246), rgb(147, 51, 234))
-                                             </code>
-                                             <CardButton label={'Copy CSS'}>
-                                                  <ClipboardIcon className={`w-3 h-3`}></ClipboardIcon>
-                                             </CardButton>
-                                        </div>
-                                   </div>
-                              </div>
+                              {children}
                          </motion.div>
                     ) : null}
                </AnimatePresence>
@@ -116,10 +94,49 @@ const Buttons = ({ savedGradients, id, addCollection, removeCollection }) => {
      );
 };
 
+const Popup = ({ direction, color }) => {
+     const { cardGradientDirection } = useContext(CardGradientDirection);
+     const { setAlert } = useContext(Alert);
+
+     const handleCopy = (textCode) => {
+          navigator.clipboard.writeText(textCode);
+          setAlert(true);
+     };
+
+     return (
+          <div className="flex flex-col gap-4 w-11/12 p-5 rounded-xl bg-white/90 dark:bg-darks/90  backdrop-blur">
+               <div className="w-full">
+                    <h3 className="text-sm font-medium mb-1 ">Tailwind</h3>
+                    <div className="flex gap-2">
+                         <code
+                              onClick={() => handleCopy(`${cardGradientDirection || direction} ${color}`)}
+                              className="px-3 py-1.5 text-xs rounded-lg border border-gray-300 dark:border-gray-700 overflow-hidden whitespace-nowrap truncate"
+                         >{`${cardGradientDirection || direction} ${color}`}</code>
+                         <CardButton onClick={() => handleCopy(`${cardGradientDirection || direction} ${color}`)} label={'Copy Tailwind'}>
+                              <ClipboardIcon className={`w-3 h-3`}></ClipboardIcon>
+                         </CardButton>
+                    </div>
+               </div>
+               <div className="w-full">
+                    <h3 className="text-sm font-medium mb-1">CSS</h3>
+                    <div className="flex gap-2">
+                         <code className="px-3 py-1.5 text-xs rounded-lg border border-gray-300 dark:border-gray-700 overflow-hidden whitespace-nowrap truncate">
+                              linear-gradient(to right, rgb(134, 239, 172), rgb(59, 130, 246), rgb(147, 51, 234))
+                         </code>
+                         <CardButton onClick={() => handleCopy(`Belum Jadi!`)} label={'Copy CSS'}>
+                              <ClipboardIcon className={`w-3 h-3`}></ClipboardIcon>
+                         </CardButton>
+                    </div>
+               </div>
+          </div>
+     );
+};
+
 Card.FooterContainer = FooterContainer;
 Card.ButtonsContainer = ButtonsContainer;
 Card.Gradient = Gradient;
 Card.Direction = Direction;
 Card.Buttons = Buttons;
+Card.Popup = Popup;
 
 export default Card;

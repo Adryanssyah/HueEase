@@ -6,23 +6,24 @@ import Toggles from '../fragments/HeaderNavigation/Toggles';
 import Logo from '../elements/Logo';
 import HeaderNavigation from '../fragments/HeaderNavigation';
 import MobileMenuList from '../fragments/HeaderNavigation/MobileMenuList';
+import { AnimatePresence, motion } from 'framer-motion';
 const HeaderLayout = () => {
      const [darkTheme, setDarkTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : false);
 
      const menus = [
           {
                title: 'Home',
-               link: '#',
+               link: '/',
                active: true,
           },
           {
                title: 'Playground',
-               link: '#',
+               link: '/playground',
                active: false,
           },
           {
                title: 'Collection',
-               link: '#',
+               link: '/collection',
                active: false,
           },
      ];
@@ -67,7 +68,7 @@ const HeaderLayout = () => {
                     <MenuList>
                          {menus.map((item) => (
                               <MenuList.List key={item.title}>
-                                   <MenuList.Link link={item.link} title={item.title}></MenuList.Link>
+                                   <MenuList.Href link={item.link} title={item.title}></MenuList.Href>
                               </MenuList.List>
                          ))}
                     </MenuList>
@@ -83,7 +84,7 @@ const HeaderLayout = () => {
                {mobileMenuOpen && isMobile ? (
                     <MobileMenuList>
                          {menus.map((item) => (
-                              <MobileMenuList.List key={item.title} link={item.link} title={item.title} active={item.active}></MobileMenuList.List>
+                              <MobileMenuList.List key={item.title} link={item.link} title={item.title} onClick={() => setMobileMenuOpen(false)}></MobileMenuList.List>
                          ))}
                     </MobileMenuList>
                ) : null}
