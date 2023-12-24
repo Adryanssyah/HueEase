@@ -38,7 +38,7 @@ const Links = () => {
 
 const MainGradient = () => {
      return (
-          <div className="w-full  px-2 flex justify-center">
+          <div className="w-full hidden md:flex px-2 justify-center">
                <div className="w-full h-80 rounded-2xl bg-[conic-gradient(at_right,_var(--tw-gradient-stops))] from-emerald-200 via-blue-600 to-emerald-200"></div>
           </div>
      );
