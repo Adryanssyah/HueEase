@@ -11,8 +11,8 @@ const PlaygroundPage = () => {
      const [direction, setDirection] = useState(directions[0].css);
      const [from, setFrom] = useState('from-purple-300');
      const [via, setVia] = useState('via-fuchsia-700');
-     const [to, setTo] = useState('to-cyan-900');
-     const [viaColor, setViaColor] = useState(true);
+     const [to, setTo] = useState('to-teal-400');
+     const [viaColor, setViaColor] = useState(false);
      return (
           <div>
                <PagesLayout>
@@ -78,10 +78,6 @@ const PlaygroundPage = () => {
                                              </Select.Content>
                                         </Select.Root>
                                    </div>
-                                   {/* <div className="flex flex-col gap-5">
-                                        <code className="w-full  px-5 py-2 rounded-lg border border-gray-400 dark:border-gray-700">{`${direction} ${from} ${via} ${to}`}</code>
-                                        <code className="w-full  px-5 py-2 rounded-lg border border-gray-400 dark:border-gray-700">{`${direction} ${from} ${via} ${to}`}</code>
-                                   </div> */}
                               </div>
                               <div className="py-2 grid grid-cols-1 md:grid-cols-2 gap-5">
                                    <div className={`relative order-2 md:order-1 w-full aspect-[4/3] rounded-2xl flex justify-center items-center bg-darks overflow-hidden py-20`}>
@@ -103,6 +99,9 @@ const PlaygroundPage = () => {
                                         </p>
                                    </div>
                                    <div className={`order-1 md:order-2 w-full aspect-[4/3] rounded-2xl ${direction} ${from} ${viaColor ? via : ''} ${to}`}></div>
+                              </div>
+                              <div className="flex flex-col gap-5 ">
+                                   <code className="w-full  px-5 py-3 rounded-lg border border-gray-400 dark:border-gray-700">{`${direction} ${from} ${viaColor ? via : ''} ${to}`}</code>
                               </div>
                          </div>
                     </div>
