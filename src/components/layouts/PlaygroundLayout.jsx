@@ -19,7 +19,7 @@ const Title = () => {
 
 const MainPlayground = ({ children }) => {
      const directions = [...primaryDirections, ...radialDirections, ...conicDirections];
-     const [direction, setDirection] = useState(directions[0].css);
+     const [direction, setDirection] = useState(null);
      const [fromColors, setFromColors] = useState([]);
      const [viaColors, setViaColors] = useState([]);
      const [toColors, setToColors] = useState([]);
