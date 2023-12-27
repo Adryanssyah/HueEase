@@ -7,10 +7,11 @@ import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/Home';
 import PlaygroundPage from './pages/Playground';
 import CollectionPage from './pages/Collection';
+import DefaultLayout from './components/layouts/Default';
 
 function App() {
      return (
-          <>
+          <DefaultLayout>
                <HeaderLayout />
                <Routes>
                     <Route index path="/" element={<HomePage />} />
@@ -20,7 +21,7 @@ function App() {
                <Background />
                <AlertClipboard />
                <FooterLayout />
-          </>
+          </DefaultLayout>
      );
 }
 
