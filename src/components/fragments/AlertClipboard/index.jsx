@@ -4,8 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 const AlertClipboard = () => {
      const { alert } = useContext(Alert);
      return (
-          <div className="fixed bottom-0 left-0 w-full flex justify-center items-center py-5">
-               <div className="grid grid-cols-1 place-items-end w-full max-w-7xl">
+          <div className="fixed bottom-0 left-0 w-full flex justify-center items-center py-5 ">
+               <div className="grid grid-cols-1 place-items-center w-full max-w-7xl ">
                     <AnimatePresence>
                          {alert && (
                               <motion.div

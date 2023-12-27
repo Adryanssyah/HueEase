@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
-import { ArrowDownTrayIcon, ArrowPathIcon, CodeBracketIcon, HeartIcon, LightBulbIcon } from '@heroicons/react/24/outline';
-import { Checkbox, Flex, Select, Text } from '@radix-ui/themes';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { ArrowDownTrayIcon, ArrowPathIcon, ClipboardIcon, CodeBracketIcon, HeartIcon, LightBulbIcon } from '@heroicons/react/24/outline';
+import { Button, Checkbox, Dialog, Flex, Grid, RadioGroup, Select, Text } from '@radix-ui/themes';
 import { themeColors, themeColorShades, themeColorsWithoutShades } from '../../data/tailwindColors';
 import { primaryDirections, radialDirections, conicDirections } from '../../data/directions';
 import CardButton from '../../components/elements/CardButton';
+
+import DownloadImage from '../../utils/DownloadImage';
+import { Alert } from '../../context/AlertContext';
+
 const PlaygroundLayout = ({ children }) => {
      return <>{children}</>;
 };
@@ -56,7 +60,10 @@ const MainPlayground = ({ children }) => {
           <div className="mt-16 px-2">
                <div className="w-full grid grid-cols-1 gap-8 py-2">
                     {children}
-                    <Controls viaColor={viaColor} setViaColor={setViaColor} randomize={randomize} />
+                    <Controls viaColor={viaColor} setViaColor={setViaColor} randomize={randomize}>
+                         <CopyCodeModal viaColor={viaColor} direction={direction} from={from} via={via} to={to} />
+                         <DownloadModal viaColor={viaColor} direction={direction} from={from} via={via} to={to} />
+                    </Controls>
                     <Selects
                          fromColors={fromColors}
                          viaColors={viaColors}
@@ -73,23 +80,16 @@ const MainPlayground = ({ children }) => {
                          setTo={setTo}
                     />
                     <PreviewGradient textBgDark={textBgDark} setTextBgDark={setTextBgDark} direction={direction} from={from} via={via} viaColor={viaColor} to={to} />
-                    <PreviewCode direction={direction} from={from} via={via} viaColor={viaColor} to={to} />
                </div>
           </div>
      );
 };
 
-const Controls = ({ viaColor, setViaColor, randomize }) => {
+const Controls = ({ viaColor, setViaColor, randomize, children }) => {
      return (
           <div className="flex items-center gap-2 justify-between">
                <div className="flex gap-2">
-                    {' '}
-                    <CardButton label={'Copy code'}>
-                         <CodeBracketIcon className={`w-5 h-5 inline-block`} />
-                    </CardButton>
-                    <CardButton label={'Download'}>
-                         <ArrowDownTrayIcon className={`w-5 h-5 inline-block`} />
-                    </CardButton>
+                    {children}
                     <CardButton label={'Random'} onClick={() => randomize()}>
                          <ArrowPathIcon className={`w-5 h-5 inline-block`} />
                     </CardButton>
@@ -172,11 +172,92 @@ const PreviewGradient = ({ textBgDark, setTextBgDark, direction, from, via, viaC
      );
 };
 
-const PreviewCode = ({ direction, from, via, viaColor, to }) => {
+const CopyCodeModal = ({ viaColor, direction, from, via, to }) => {
+     const { setAlert } = useContext(Alert);
+     const handleCopy = () => {
+          navigator.clipboard.writeText(`${direction} ${from} ${viaColor ? via : ''} ${to}`);
+          setAlert(true);
+     };
      return (
-          <div className="flex flex-col gap-5 ">
-               <code className="w-full text-center px-5 py-3 rounded-lg border border-gray-400 dark:border-gray-700">{`${direction} ${from} ${viaColor ? via : ''} ${to}`}</code>
-          </div>
+          <Dialog.Root>
+               <Dialog.Trigger>
+                    <CardButton label={'Copy code'}>
+                         <CodeBracketIcon className={`w-5 h-5 inline-block`} />
+                    </CardButton>
+               </Dialog.Trigger>
+               <Dialog.Content>
+                    <Dialog.Title>Copy Code</Dialog.Title>
+                    <div className="my-5">
+                         <p className="mb-2 text-sm font-medium">Tailwind</p>
+                         <div className="relative w-full px-5 py-3 rounded-lg border border-gray-300 dark:border-gray-700 ">
+                              <code className="text-sm w-10">
+                                   {direction} {from} {viaColor ? via : ''} {to}
+                              </code>
+                              <Dialog.Close>
+                                   <CardButton onClick={handleCopy} classes="absolute right-2 top-2" label={'Copy Tailwind'}>
+                                        <ClipboardIcon className={`w-3 h-3`}></ClipboardIcon>
+                                   </CardButton>
+                              </Dialog.Close>
+                         </div>
+                    </div>
+                    <Flex justify={'end'}>
+                         <Dialog.Close>
+                              <Button variant="soft" color="gray">
+                                   Cancel
+                              </Button>
+                         </Dialog.Close>
+                    </Flex>
+               </Dialog.Content>
+          </Dialog.Root>
+     );
+};
+
+const DownloadModal = ({ viaColor, direction, from, via, to }) => {
+     const [ratio, setRatio] = useState('landscape');
+     const imageEl = useRef();
+     return (
+          <Dialog.Root>
+               <Dialog.Trigger>
+                    <CardButton label={'Download'}>
+                         <ArrowDownTrayIcon className={`w-5 h-5 inline-block`} />
+                    </CardButton>
+               </Dialog.Trigger>
+
+               <Dialog.Content style={{ maxWidth: 450 }}>
+                    <Dialog.Title>Download Gradient</Dialog.Title>
+
+                    <div className="w-full flex justify-center my-5">
+                         <div ref={imageEl} className={`w-full ${ratio === 'landscape' ? 'aspect-[16/9]' : 'max-w-[200px] aspect-[9/16]'} transition-all duration-300 ${direction} ${from} ${viaColor ? via : ''} ${to}`}></div>
+                    </div>
+
+                    <Flex gap="3" mt="4" justify="between" align="center">
+                         <RadioGroup.Root defaultValue={ratio} onValueChange={setRatio}>
+                              <Flex gap="4" direction={{ initial: 'column', sm: 'row' }}>
+                                   <Text as="label" size="2">
+                                        <Flex gap="2">
+                                             <RadioGroup.Item value="landscape" /> Landscape
+                                        </Flex>
+                                   </Text>
+                                   <Text as="label" size="2">
+                                        <Flex gap="2">
+                                             <RadioGroup.Item value="portrait" /> Portrait
+                                        </Flex>
+                                   </Text>
+                              </Flex>
+                         </RadioGroup.Root>
+
+                         <Flex gap="3" direction={{ initial: 'column-reverse', sm: 'row' }}>
+                              <Dialog.Close>
+                                   <Button variant="soft" color="gray">
+                                        Cancel
+                                   </Button>
+                              </Dialog.Close>
+
+                              <Button onClick={() => DownloadImage(imageEl, 'Custom Gradient - HueEase')}>Download</Button>
+                         </Flex>
+                    </Flex>
+               </Dialog.Content>
+          </Dialog.Root>
      );
 };
 
@@ -185,6 +266,7 @@ PlaygroundLayout.MainPlayground = MainPlayground;
 PlaygroundLayout.Controls = Controls;
 PlaygroundLayout.Selects = Selects;
 PlaygroundLayout.PreviewGradient = PreviewGradient;
-PlaygroundLayout.PreviewCode = PreviewCode;
+PlaygroundLayout.CopyCodeModal = CopyCodeModal;
+PlaygroundLayout.DownloadModal = DownloadModal;
 
 export default PlaygroundLayout;

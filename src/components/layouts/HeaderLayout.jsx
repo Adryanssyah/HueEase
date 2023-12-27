@@ -6,7 +6,7 @@ import Toggles from '../fragments/HeaderNavigation/Toggles';
 import Logo from '../elements/Logo';
 import HeaderNavigation from '../fragments/HeaderNavigation';
 import MobileMenuList from '../fragments/HeaderNavigation/MobileMenuList';
-import { AnimatePresence, motion } from 'framer-motion';
+
 const HeaderLayout = () => {
      const [darkTheme, setDarkTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : false);
 
