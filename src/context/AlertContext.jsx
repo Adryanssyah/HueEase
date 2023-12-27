@@ -4,6 +4,7 @@ const AlertContext = createContext();
 
 const AlertProvider = ({ children }) => {
      const [alert, setAlert] = useState(false);
+     const [alertText, setAlertText] = useState('');
      useEffect(() => {
           if (alert) {
                setTimeout(() => {
@@ -11,7 +12,7 @@ const AlertProvider = ({ children }) => {
                }, 2000);
           }
      }, [alert]);
-     return <AlertContext.Provider value={{ alert, setAlert }}>{children}</AlertContext.Provider>;
+     return <AlertContext.Provider value={{ alert, setAlert, alertText, setAlertText }}>{children}</AlertContext.Provider>;
 };
 
 export const Alert = AlertContext;

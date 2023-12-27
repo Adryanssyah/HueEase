@@ -60,7 +60,7 @@ const MainPlayground = ({ children }) => {
           <div className="mt-16 px-2">
                <div className="w-full grid grid-cols-1 gap-8 py-2">
                     {children}
-                    <Controls viaColor={viaColor} setViaColor={setViaColor} randomize={randomize}>
+                    <Controls viaColor={viaColor} setViaColor={setViaColor} randomize={randomize} direction={direction} from={from} via={via} to={to}>
                          <CopyCodeModal viaColor={viaColor} direction={direction} from={from} via={via} to={to} />
                          <DownloadModal viaColor={viaColor} direction={direction} from={from} via={via} to={to} />
                     </Controls>
@@ -85,7 +85,29 @@ const MainPlayground = ({ children }) => {
      );
 };
 
-const Controls = ({ viaColor, setViaColor, randomize, children }) => {
+const Controls = ({ viaColor, setViaColor, randomize, children, direction, from, via, to }) => {
+     const [savedCustomGradients, setSavedCustomGradients] = useState(JSON.parse(localStorage.getItem('myCustomCollections')) || []);
+     const { setAlert, setAlertText } = useContext(Alert);
+
+     const handleALert = (toggle, message) => {
+          setAlertText(message);
+          setAlert(toggle);
+     };
+
+     const addCollection = (color, direction) => {
+          const maxCustomCollections = 10;
+          let startId = null;
+          savedCustomGradients.length ? (startId = parseInt(savedCustomGradients.slice(-1)[0].id.split('-')[1]) + 1) : (startId = 1);
+          console.log(startId);
+          !savedCustomGradients.some((obj) => obj.code.tailwind === `${direction} ${color}`) && savedCustomGradients.length + 1 <= maxCustomCollections
+               ? (setSavedCustomGradients([...savedCustomGradients, { id: `custom-${startId}`, name: `custom-${startId}`, type: 'custom', code: { tailwind: `${direction} ${color}` }, color: color, direction: direction }]),
+                 handleALert(true, `🎉 Gradient saved!`))
+               : handleALert(true, savedCustomGradients.length + 1 <= maxCustomCollections ? `❌ This gradient already saved!` : `❌ You can only save ${maxCustomCollections} gradients!`);
+     };
+
+     useEffect(() => {
+          localStorage.setItem('myCustomCollections', JSON.stringify(savedCustomGradients));
+     }, [savedCustomGradients]);
      return (
           <div className="flex items-center gap-2 justify-between">
                <div className="flex gap-2">
@@ -93,7 +115,7 @@ const Controls = ({ viaColor, setViaColor, randomize, children }) => {
                     <CardButton label={'Random'} onClick={() => randomize()}>
                          <ArrowPathIcon className={`w-5 h-5 inline-block`} />
                     </CardButton>
-                    <CardButton label={'Save'}>
+                    <CardButton onClick={() => addCollection(`${from} ${via} ${to}`, `${direction}`)} label={'Save'}>
                          <HeartIcon className={`w-5 h-5 inline-block`} />
                     </CardButton>
                </div>
@@ -173,9 +195,10 @@ const PreviewGradient = ({ textBgDark, setTextBgDark, direction, from, via, viaC
 };
 
 const CopyCodeModal = ({ viaColor, direction, from, via, to }) => {
-     const { setAlert } = useContext(Alert);
+     const { setAlert, setAlertText } = useContext(Alert);
      const handleCopy = () => {
           navigator.clipboard.writeText(`${direction} ${from} ${viaColor ? via : ''} ${to}`);
+          setAlertText('🎉 Copied to clipboard!');
           setAlert(true);
      };
      return (

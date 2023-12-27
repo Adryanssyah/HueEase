@@ -2,6 +2,7 @@ import CollectionsLayout from '../components/layouts/CollectionsLayout';
 import PagesLayout from '../components/layouts/PagesLayout';
 
 const CollectionPage = () => {
+     window.scrollTo(0, 0);
      return (
           <PagesLayout>
                <div className="px-2 mb-20">

@@ -11,6 +11,7 @@ const GradientsLayout = () => {
      const [type, setType] = useState('linear');
      const types = ['linear', 'radial', 'conic'];
      const [savedGradients, setSavedGradients] = useState(JSON.parse(localStorage.getItem('myCollection')) || []);
+     const [savedCustomGradients, setSavedCustomGradients] = useState(JSON.parse(localStorage.getItem('myCustomCollections')) || []);
 
      const addCollection = (id) => {
           !savedGradients.includes(id) && setSavedGradients([...savedGradients, id]);

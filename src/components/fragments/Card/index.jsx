@@ -50,7 +50,7 @@ const Direction = ({ direction, dataDirections }) => {
      );
 };
 
-const Buttons = ({ savedGradients, id, addCollection, removeCollection, children }) => {
+const Buttons = ({ removeCustom, type, savedGradients, id, addCollection, removeCollection, children }) => {
      const [popup, setPopup] = useState(false);
      const popupRef = useRef();
      const buttonRef = useRef();
@@ -87,8 +87,8 @@ const Buttons = ({ savedGradients, id, addCollection, removeCollection, children
                     ) : null}
                </AnimatePresence>
 
-               <CardButton onClick={() => (savedGradients.includes(id) ? removeCollection(id) : addCollection(id))} label={savedGradients.includes(id) ? 'Saved' : 'Save'}>
-                    {savedGradients.includes(id) ? <HeartIconActive className={`md:w-4 md:h-4 w-5 h-5 text-red-500`} /> : <HeartIcon className={`md:w-4 md:h-4 w-5 h-5`} />}
+               <CardButton onClick={() => (savedGradients.includes(id) && type !== 'custom' ? removeCollection(id) : type === 'custom' ? removeCustom(id) : addCollection(id))} label={savedGradients.includes(id) ? 'Saved' : 'Save'}>
+                    {savedGradients.includes(id) || type === 'custom' ? <HeartIconActive className={`md:w-4 md:h-4 w-5 h-5 text-red-500`} /> : <HeartIcon className={`md:w-4 md:h-4 w-5 h-5`} />}
                </CardButton>
           </>
      );
@@ -96,10 +96,11 @@ const Buttons = ({ savedGradients, id, addCollection, removeCollection, children
 
 const Popup = ({ direction, color }) => {
      const { cardGradientDirection } = useContext(CardGradientDirection);
-     const { setAlert } = useContext(Alert);
+     const { setAlert, setAlertText } = useContext(Alert);
 
      const handleCopy = (textCode) => {
           navigator.clipboard.writeText(textCode);
+          setAlertText('🎉 Copied to clipboard!');
           setAlert(true);
      };
 
@@ -117,7 +118,7 @@ const Popup = ({ direction, color }) => {
                          </CardButton>
                     </div>
                </div>
-               <div className="w-full">
+               <div className="w-full hidden">
                     <h3 className="text-sm font-medium mb-1">CSS</h3>
                     <div className="flex gap-2">
                          <code className="px-3 py-1.5 text-xs rounded-lg border border-gray-300 dark:border-gray-700 overflow-hidden whitespace-nowrap truncate">
