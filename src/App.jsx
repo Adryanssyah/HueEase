@@ -15,7 +15,7 @@ function App() {
                <Routes>
                     <Route index path="/" element={<HomePage />} />
                     <Route path="playground" element={<PlaygroundPage />} />
-                    <Route path="collection" element={<CollectionPage />} />
+                    <Route path="collections" element={<CollectionPage />} />
                </Routes>
                <Background />
                <AlertClipboard />

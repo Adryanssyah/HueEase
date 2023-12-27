@@ -22,8 +22,8 @@ const HeaderLayout = () => {
                active: false,
           },
           {
-               title: 'Collection',
-               link: '/collection',
+               title: 'Collections',
+               link: '/collections',
                active: false,
           },
      ];
