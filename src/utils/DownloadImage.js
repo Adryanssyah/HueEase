@@ -1,6 +1,6 @@
 import * as htmlToImage from 'html-to-image';
 
-export const DownloadImage = (imageEl, fileName) => {
+const DownloadImage = (imageEl, fileName) => {
      htmlToImage.toPng(imageEl.current, { pixelRatio: 8, quality: 1 }).then((imageData) => {
           const downloadLink = document.createElement('a');
 
@@ -9,3 +9,5 @@ export const DownloadImage = (imageEl, fileName) => {
           downloadLink.click();
      });
 };
+
+export default DownloadImage;
