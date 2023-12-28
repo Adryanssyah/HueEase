@@ -1,4 +1,3 @@
-import { Link as RadixLink } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
 
 const EmptyHandler = ({ type }) => {

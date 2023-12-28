@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ArrowDownTrayIcon, ArrowPathIcon, ClipboardIcon, CodeBracketIcon, HeartIcon, LightBulbIcon } from '@heroicons/react/24/outline';
-import { Button, Checkbox, Dialog, Flex, Grid, RadioGroup, Select, Text } from '@radix-ui/themes';
+import { Button, Checkbox, Dialog, Flex, RadioGroup, Select, Text } from '@radix-ui/themes';
 import { themeColors, themeColorShades, themeColorsWithoutShades } from '../../data/tailwindColors';
 import { primaryDirections, radialDirections, conicDirections } from '../../data/directions';
 import CardButton from '../../components/elements/CardButton';
