@@ -121,7 +121,7 @@ const Controls = ({ viaColor, setViaColor, randomize, children, direction, from,
                </div>
                <Text as="label" size="2">
                     <Flex gap="2" align={'center'}>
-                         <Checkbox checked={viaColor} onCheckedChange={() => setViaColor(!viaColor)} /> Via Color
+                         <Checkbox checked={viaColor} onCheckedChange={() => setViaColor(!viaColor)} aria-label="Enable Via Color" /> Via Color
                     </Flex>
                </Text>
           </div>
@@ -133,7 +133,7 @@ const Selects = ({ fromColors, viaColors, toColors, directions, viaColor, direct
           <div className="py-2 flex flex-col gap-10">
                <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 border-gray-400 dark:border-gray-700  ">
                     <Select.Root value={direction} onValueChange={(e) => setDirection(e)} size={{ initial: '3' }}>
-                         <Select.Trigger radius="large" />
+                         <Select.Trigger radius="large" aria-label="Select direction" />
                          <Select.Content position="popper">
                               {directions.map((item, index) => (
                                    <Select.Item key={index} value={item.css}>
@@ -143,7 +143,7 @@ const Selects = ({ fromColors, viaColors, toColors, directions, viaColor, direct
                          </Select.Content>
                     </Select.Root>
                     <Select.Root value={from} onValueChange={(e) => setFrom(e)} size={{ initial: '3' }}>
-                         <Select.Trigger radius="large" />
+                         <Select.Trigger radius="large" aria-label="Select From Color" />
                          <Select.Content position="popper">
                               {fromColors.map((color) => (
                                    <Select.Item key={color} value={`${color}`}>{`${color}`}</Select.Item>
@@ -151,7 +151,7 @@ const Selects = ({ fromColors, viaColors, toColors, directions, viaColor, direct
                          </Select.Content>
                     </Select.Root>{' '}
                     <Select.Root value={via} onValueChange={(e) => setVia(e)} size={{ initial: '3' }} disabled={!viaColor}>
-                         <Select.Trigger radius="large" />
+                         <Select.Trigger radius="large" aria-label="Select Via Color" />
                          <Select.Content position="popper">
                               {viaColors.map((color) => (
                                    <Select.Item key={color} value={`${color}`}>{`${color}`}</Select.Item>
@@ -159,7 +159,7 @@ const Selects = ({ fromColors, viaColors, toColors, directions, viaColor, direct
                          </Select.Content>
                     </Select.Root>
                     <Select.Root value={to} onValueChange={(e) => setTo(e)} size={{ initial: '3' }}>
-                         <Select.Trigger radius="large" />
+                         <Select.Trigger radius="large" aria-label="Select To Color" />
                          <Select.Content position="popper">
                               {toColors.map((color) => (
                                    <Select.Item key={color} value={`${color}`}>{`${color}`}</Select.Item>

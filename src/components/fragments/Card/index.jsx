@@ -36,7 +36,7 @@ const Direction = ({ direction, dataDirections }) => {
                     sm: '2',
                }}
           >
-               <Select.Trigger radius="large" />
+               <Select.Trigger radius="large" aria-label="Select direction" />
                <Select.Content position="popper">
                     {dataDirections.map((item, index) => {
                          return (
@@ -87,7 +87,10 @@ const Buttons = ({ removeCustom, type, savedGradients, id, addCollection, remove
                     ) : null}
                </AnimatePresence>
 
-               <CardButton onClick={() => (savedGradients.includes(id) && type !== 'custom' ? removeCollection(id) : type === 'custom' ? removeCustom(id) : addCollection(id))} label={savedGradients.includes(id) ? 'Saved' : 'Save'}>
+               <CardButton
+                    onClick={() => (savedGradients.includes(id) && type !== 'custom' ? removeCollection(id) : type === 'custom' ? removeCustom(id) : addCollection(id))}
+                    label={savedGradients.includes(id) ? 'Gradient Saved' : 'Save Gradient'}
+               >
                     {savedGradients.includes(id) || type === 'custom' ? <HeartIconActive className={`md:w-4 md:h-4 w-5 h-5 text-red-500`} /> : <HeartIcon className={`md:w-4 md:h-4 w-5 h-5`} />}
                </CardButton>
           </>
